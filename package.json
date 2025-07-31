@@ -1,0 +1,25 @@
+{
+  "name": "nodejs-assessment-insuredmine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PropsCoder-Raj/nodejs-assessment-insuredmine.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PropsCoder-Raj/nodejs-assessment-insuredmine/issues"
+  },
+  "homepage": "https://github.com/PropsCoder-Raj/nodejs-assessment-insuredmine#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0"
+  }
+}
