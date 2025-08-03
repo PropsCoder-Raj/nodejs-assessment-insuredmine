@@ -53,23 +53,27 @@ const uploadData = (req, res) => {
         workerData: { filePath: req.file.path }
     });
 
+    let responded = false;
+
     worker.on('message', (msg) => {
-        console.log('Worker:', msg);
+        if (!responded) {
+            responded = true;
+            res.status(200).json({ status: true, message: msg });
+        }
     });
 
     worker.on('error', (err) => {
-        console.error('Error:', err);
-        res.status(500).json({
-            status: false, message: 'Worker encountered an error', error: err.message
-        });
+        if (!responded) {
+            responded = true;
+            res.status(500).json({ status: false, message: 'Worker encountered an error', error: err.message });
+        }
     });
 
     worker.on('exit', (code) => {
-        if (code !== 0) {
-            res.status(500).json({ status: false, message: 'Worker thread exited with error', exitCode: code });
+        if (code !== 0 && !responded) {
+            responded = true;
+            res.status(500).json({ status: false, message: `Worker exited with code ${code}` });
         }
-
-        res.status(200).json({ status: true, message: 'File processed successfully' });
     });
 };
 

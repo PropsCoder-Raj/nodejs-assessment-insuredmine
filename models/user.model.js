@@ -7,22 +7,18 @@ const UserSchema = new mongoose.Schema({
   },
   dob: {
     type: Date,
-    required: true,
   },
   address: {
     type: String,
   },
   phone: {
     type: String,
-    required: true,
   },
   state: {
     type: String,
-    required: true,
   },
   zip: {
     type: String,
-    required: true,
   },
   email: {
     type: String,
