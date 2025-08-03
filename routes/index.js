@@ -9,4 +9,8 @@ router.use('/users', userRoutes);
 const policyRoutes = require('./policy.routes');
 router.use('/policy', policyRoutes);
 
+// Message route
+const messageRoutes = require('./message.routes');
+router.use('/message', messageRoutes);
+
 module.exports = router;
