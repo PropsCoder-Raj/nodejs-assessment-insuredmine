@@ -7,5 +7,6 @@ const {
 const router = express.Router();
 
 router.get('/by-user/:name', getPolicyByUsername);
+router.get('/aggregate-by-user', getAggregatedPolicies);
 
 module.exports = router;
