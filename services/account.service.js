@@ -6,7 +6,7 @@ const accountService = {
   },
   findOne: async (query) => await Account.findOne(query),
   update: async (query, updateObj) => await Account.findOneAndUpdate(query, updateObj, { new: true }),
-  upsert: async (query, updateObj) => await Account.findOneAndUpdate(query, updateObj, { new: true, upsert: true }),
+  upsert: async (query, updateObj, session = null) => await Account.findOneAndUpdate(query, updateObj, { new: true, upsert: true, session }),
   delete: async (query) => await Account.findOneAndDelete(query),
   list: async (query = {}) => await Account.find(query).sort({ createdAt: -1 })
 };

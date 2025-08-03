@@ -4,9 +4,6 @@ const AccountSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
-  },
-  type: {
-    type: String
   }
 }, { timestamps: true });
 

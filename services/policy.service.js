@@ -6,6 +6,7 @@ const policyService = {
   },
   findOne: async (query) => await Policy.findOne(query),
   update: async (query, updateObj) => await Policy.findOneAndUpdate(query, updateObj, { new: true }),
+  upsert: async (query, updateObj, session = null) => await Policy.findOneAndUpdate(query, updateObj, { new: true, upsert: true, session }),
   delete: async (query) => await Policy.findOneAndDelete(query),
   list: async (query = {}, populateFields = []) => {
     let q = Policy.find(query);

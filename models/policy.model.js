@@ -3,55 +3,30 @@ const mongoose = require('mongoose');
 const PolicySchema = new mongoose.Schema({
   policyNumber: {
     type: String,
-    required: true
+    required: true,
   },
   startDate: {
-    type: Date
+    type: Date,
+    required: true,
   },
   endDate: {
-    type: Date
-  },
-  policyMode: {
-    type: Number
-  },
-  premiumAmountWritten: {
-    type: String
-  },
-  premiumAmount: {
-    type: Number
-  },
-  policyType: {
-    type: String
-  },
-  csr: {
-    type: String
-  },
-  producer: {
-    type: String
-  },
-  primary: {
-    type: String
-  },
-  applicantId: {
-    type: String
-  },
-  agencyId: {
-    type: String
-  },
-  hasActiveClientPolicy: {
-    type: String
+    type: Date,
+    required: true,
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category'
+    ref: 'Category',
+    required: true,
   },
   carrier: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Carrier'
+    ref: 'Carrier',
+    required: true,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true,
   }
 }, { timestamps: true });
 
