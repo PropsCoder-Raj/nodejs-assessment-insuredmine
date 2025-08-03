@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const CarrierSchema = new mongoose.Schema({
   companyName: {
     type: String,
-    required: true,
+    required: true
   }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Carrier', CarrierSchema);
