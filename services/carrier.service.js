@@ -1,4 +1,4 @@
-const Carrier = require('../models/Carrier');
+const Carrier = require('../models/carrier.model');
 
 const carrierService = {
   create: async (data) => await Carrier.create(data),

@@ -15,6 +15,9 @@ app.get('/', (req, res) => {
   });
 });
 
+const indexRoutes = require('./routes');
+app.use('/api', indexRoutes);
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

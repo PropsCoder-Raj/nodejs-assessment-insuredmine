@@ -1,4 +1,4 @@
-const Policy = require('../models/Policy');
+const Policy = require('../models/policy.model');
 
 const policyService = {
   create: async (data) => await Policy.create(data),

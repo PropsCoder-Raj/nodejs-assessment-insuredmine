@@ -1,4 +1,4 @@
-const Agent = require('../models/Agent');
+const Agent = require('../models/agent.model');
 
 const agentService = {
   create: async (data) => await Agent.create(data),
