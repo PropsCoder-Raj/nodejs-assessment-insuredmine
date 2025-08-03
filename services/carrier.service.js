@@ -6,6 +6,7 @@ const carrierService = {
   },
   findOne: async (query) => await Carrier.findOne(query),
   update: async (query, updateObj) => await Carrier.findOneAndUpdate(query, updateObj, { new: true }),
+  upsert: async (query, updateObj) => await Carrier.findOneAndUpdate(query, updateObj, { new: true, upsert: true }),
   delete: async (query) => await Carrier.findOneAndDelete(query),
   list: async (query = {}) => await Carrier.find(query).sort({ createdAt: -1 })
 };

@@ -6,6 +6,7 @@ const agentService = {
   },
   findOne: async (query) => await Agent.findOne(query),
   update: async (query, updateObj) => await Agent.findOneAndUpdate(query, updateObj, { new: true }),
+  upsert: async (query, updateObj) => await Agent.findOneAndUpdate(query, updateObj, { new: true, upsert: true }),
   delete: async (query) => await Agent.findOneAndDelete(query),
   list: async (query = {}) => await Agent.find(query).sort({ createdAt: -1 })
 };

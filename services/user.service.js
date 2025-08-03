@@ -6,6 +6,7 @@ const userService = {
   },
   findOne: async (query) => await User.findOne(query),
   update: async (query, updateObj) => await User.findOneAndUpdate(query, updateObj, { new: true }),
+  upsert: async (query, updateObj) => await User.findOneAndUpdate(query, updateObj, { new: true, upsert: true }),
   delete: async (query) => await User.findOneAndDelete(query),
   list: async (query = {}) => await User.find(query).sort({ createdAt: -1 })
 };
