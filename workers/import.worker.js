@@ -28,33 +28,27 @@ require('dotenv').config();
 
         try {
             for (const row of data) {
-                const { agent: agentName, userType, policy_mode, producer, policy_number, premium_amount_written, premium_amount, policy_type, company_name, category_name, policy_start_date, policy_end_date, csr, account_name, email, gender, firstname, city, account_type, phone, address, state, zip, dob, primary, 'Applicant ID': applicant_id, agency_id, 'hasActive ClientPolicy': hasActiveClientPolicy } = row;
+                const { agent: agentName, userType, policy_number, company_name, category_name, policy_start_date, policy_end_date, account_name, email, gender, firstname, phone, address, state, zip, dob } = row;
 
                 const [agent, user, account, category, carrier] = await Promise.all([
-                    agentService.create({ name: agentName }, session),
-                    userService.create({ firstName: firstname, dob, address, phone, state, zip, email, gender, userType, city }, session),
-                    accountService.create({ name: account_name, type: account_type }, session),
-                    categoryService.create({ name: category_name }, session),
-                    carrierService.create({ companyName: company_name }, session)
+                    agentService.upsert({ name: agentName }, { name: agentName }, session),
+                    userService.create({ firstName: firstname, dob, address, phone, state, zip, email, gender, userType }, session),
+                    accountService.upsert({ name: account_name }, { name: account_name }, session),
+                    categoryService.upsert({ name: category_name }, { name: category_name }, session),
+                    carrierService.upsert({ companyName: company_name }, { companyName: company_name }, session)
                 ]);
 
+                if (user.length == 0 || !carrier?._id || !category?._id) {
+                    throw new Error('One or more references are missing before creating policy');
+                }
+                
                 await policyService.create({
                     policyNumber: policy_number,
                     startDate: policy_start_date,
                     endDate: policy_end_date,
-                    policyMode: policy_mode,
-                    premiumAmountWritten: premium_amount_written,
-                    premiumAmount: premium_amount,
-                    policyType: policy_type,
-                    csr,
-                    producer,
-                    primary,
-                    applicantId: applicant_id,
-                    agencyId: agency_id,
-                    hasActiveClientPolicy,
                     category: category._id,
                     carrier: carrier._id,
-                    user: user._id
+                    user: user[0]._id
                 }, session);
             }
 
@@ -62,6 +56,7 @@ require('dotenv').config();
             session.endSession();
 
             parentPort.postMessage('All data inserted successfully with transaction');
+            process.exit();
         } catch (error) {
             await session.abortTransaction();
             session.endSession();
@@ -69,8 +64,6 @@ require('dotenv').config();
             parentPort.postMessage('Worker transaction failed: ' + error.message);
             process.exit(1);
         }
-
-        parentPort.postMessage('All data inserted successfully');
     } catch (err) {
         console.error('Worker failed:', err);
         parentPort.postMessage('Worker failed: ' + err.message);
