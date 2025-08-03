@@ -1,5 +1,11 @@
-const { getAllCollection } = require('../controllers/user.controller');
+const express = require('express');
+const multer = require('multer');
+const { uploadData, getAllCollection } = require('../controllers/user.controller');
 
-router.get('/all-collection', upload.single('file'), getAllCollection);
+const router = express.Router();
+const upload = multer({ dest: 'uploads/' });
+
+router.get('/all-collection', getAllCollection);
+router.post('/upload-data', upload.single('file'), uploadData);
 
 module.exports = router;
